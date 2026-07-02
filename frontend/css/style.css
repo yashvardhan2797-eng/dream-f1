@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800&display=swap");
+
+@import url("variables.css");
+@import url("animations.css");
+@import url("navbar.css");
+@import url("hero.css");
+@import url("cards.css");
+
+/* ======================================
+   GLOBAL RESET
+====================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:var(--color-background);
+
+    color:var(--color-white);
+
+    font-family:var(--font-body);
+
+    overflow-x:hidden;
+
+    min-height:100vh;
+
+}
+
+/* ======================================
+   CONTAINER
+====================================== */
+
+.container{
+
+    width:min(92%,var(--container-width));
+
+    margin:0 auto;
+
+}
+ 
+/* ==========================================================
+   BACKGROUND
+========================================================== */
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    z-index:-2;
+
+}
+
+/* ============================= */
+
+.grid{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(0,229,255,.05) 1px, transparent 1px),
+
+        linear-gradient(90deg, rgba(0,229,255,.05) 1px, transparent 1px);
+
+    background-size:60px 60px;
+
+    animation:gridMove 10s linear infinite;
+
+}
+
+/* ============================= */
+
+.glow{
+
+    position:absolute;
+
+    width:500px;
+
+    height:500px;
+
+    border-radius:50%;
+
+    filter:blur(140px);
+
+    opacity:.35;
+
+    animation:floatGlow 8s ease-in-out infinite;
+
+}
+
+/* ============================= */
+
+.glow-1{
+
+    background:#00E5FF;
+
+    top:-150px;
+
+    left:-120px;
+
+}
+
+.glow-2{
+
+    background:#7B61FF;
+
+    bottom:-180px;
+
+    right:-150px;
+
+    animation-delay:3s;
+
+}

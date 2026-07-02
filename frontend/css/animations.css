@@ -1,0 +1,122 @@
+/* ==========================================================
+   Formula Fan
+
+   File: animations.css
+
+   Purpose:
+   Background animations.
+
+========================================================== */
+
+/* Floating glow */
+
+@keyframes floatGlow{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-40px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+/* Grid movement */
+
+@keyframes gridMove{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(40px);
+
+    }
+
+}
+
+/* ==========================================
+   HERO FADE IN
+========================================== */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes pulse {
+
+    0% {
+
+        transform: scale(1);
+        opacity: 1;
+
+    }
+
+    50% {
+
+        transform: scale(1.5);
+        opacity: .5;
+
+    }
+
+    100% {
+
+        transform: scale(1);
+        opacity: 1;
+
+    }
+
+}
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+    50%{
+
+        transform:scale(1.4);
+
+        opacity:.4;
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}

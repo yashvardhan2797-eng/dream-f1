@@ -1,0 +1,119 @@
+/* ==========================================================
+   Formula Fan Design System
+   Version : 0.1 Alpha
+   Developer : Yashvardhan Rathore
+   ========================================================== */
+
+:root {
+
+    /* ==========================================
+       COLORS
+    ========================================== */
+
+    --color-background: #0B0F17;
+    --color-surface: #141B29;
+    --color-surface-light: #1B2435;
+
+    --color-primary: #00E5FF;
+    --color-primary-dark: #009DFF;
+
+    --color-secondary: #7B61FF;
+
+    --color-success: #00D26A;
+    --color-warning: #FFC857;
+    --color-danger: #FF4C61;
+
+    --color-white: #F8FAFC;
+    --color-light: #D7DFEA;
+    --color-muted: #94A3B8;
+
+    --color-border: rgba(255,255,255,0.08);
+
+    /* ==========================================
+       GLOW EFFECTS
+    ========================================== */
+
+    --glow-primary: 0 0 12px rgba(0,229,255,.45);
+    --glow-secondary: 0 0 18px rgba(123,97,255,.40);
+
+    /* ==========================================
+       SHADOWS
+    ========================================== */
+
+    --shadow-small:
+        0 2px 8px rgba(0,0,0,.25);
+
+    --shadow-medium:
+        0 10px 25px rgba(0,0,0,.35);
+
+    --shadow-large:
+        0 20px 40px rgba(0,0,0,.45);
+
+    /* ==========================================
+       BORDER RADIUS
+    ========================================== */
+
+    --radius-small: 8px;
+    --radius-medium: 14px;
+    --radius-large: 22px;
+    --radius-pill: 999px;
+
+    /* ==========================================
+       SPACING
+    ========================================== */
+
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 40px;
+    --space-2xl: 64px;
+
+    /* ==========================================
+       FONT FAMILY
+    ========================================== */
+
+    --font-heading:
+        "Orbitron",
+        sans-serif;
+
+    --font-body:
+        "Inter",
+        sans-serif;
+
+    /* ==========================================
+       FONT SIZE
+    ========================================== */
+
+    --text-xs: .75rem;
+    --text-sm: .875rem;
+    --text-md: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2.5rem;
+    --text-3xl: 4rem;
+
+    /* ==========================================
+       FONT WEIGHT
+    ========================================== */
+
+    --weight-normal: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+
+    /* ==========================================
+       TRANSITIONS
+    ========================================== */
+
+    --transition-fast: .2s ease;
+    --transition-normal: .35s ease;
+    --transition-slow: .6s ease;
+
+    /* ==========================================
+       MAX WIDTH
+    ========================================== */
+
+    --container-width: 1300px;
+
+}

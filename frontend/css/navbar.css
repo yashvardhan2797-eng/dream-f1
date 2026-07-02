@@ -1,0 +1,145 @@
+/* ==========================================================
+   Formula Fan
+
+   File: navbar.css
+
+   Purpose:
+   Styles for the main navigation bar.
+
+   Developer:
+   Yashvardhan Rathore
+
+   Sprint:
+   Sprint 2 - FF-1004
+========================================================== */
+
+.navbar{
+    header{
+
+    padding-top:20px;
+
+}
+
+    .navbar{
+
+    width:100%;
+
+    height:90px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 var(--space-lg);
+
+    position:sticky;
+    top:20px;
+
+    background:rgba(20, 27, 41, 0.45);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+
+    z-index:1000;
+
+}
+    
+
+}
+
+/* ==========================
+        LOGO
+========================== */
+
+.logo{
+
+    font-family:var(--font-heading);
+
+    font-size:1.4rem;
+
+    font-weight:700;
+
+    color:var(--color-primary);
+
+    text-shadow:var(--glow-primary);
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+}
+
+/* ==========================
+      NAVIGATION
+========================== */
+
+.nav-links{
+
+    display:flex;
+
+    list-style:none;
+
+    gap:40px;
+
+}
+
+.nav-links a{
+
+    text-decoration:none;
+
+    color:var(--color-light);
+
+    transition:var(--transition-fast);
+
+    font-weight:500;
+
+}
+
+.nav-links a:hover{
+
+    color:var(--color-primary);
+
+    text-shadow:var(--glow-primary);
+
+}
+
+/* ==========================
+        LOGIN BUTTON
+========================== */
+
+.login-btn{
+
+    background:transparent;
+
+    border:2px solid var(--color-primary);
+
+    color:var(--color-primary);
+
+    padding:12px 28px;
+
+    border-radius:var(--radius-pill);
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:var(--transition-normal);
+
+}
+
+.login-btn:hover{
+
+    background:var(--color-primary);
+
+    color:#000;
+
+    box-shadow:var(--glow-primary);
+
+}
