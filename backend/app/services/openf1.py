@@ -21,8 +21,15 @@ class OpenF1Client(APIClient):
     def __init__(self):
         super().__init__("https://api.openf1.org/v1")
 
+    # ----------------------------------------------------
+    # Basic API Calls
+    # ----------------------------------------------------
+
     def get_drivers(self):
         return self.get("drivers")
+
+    def get_meetings(self):
+        return self.get("meetings")
 
     def get_sessions(self, meeting_key=None):
 
@@ -32,7 +39,44 @@ class OpenF1Client(APIClient):
             params["meeting_key"] = meeting_key
 
         return self.get("sessions", params=params)
-    
+
+    # ----------------------------------------------------
+    # Latest Meeting
+    # ----------------------------------------------------
+
+    def get_latest_meeting(self):
+
+        meetings = self.get_meetings()
+
+        if not meetings:
+            return None
+
+        # API returned an error
+        if isinstance(meetings, dict):
+            return None
+
+        # Keep only valid meetings
+        meetings = [
+            meeting
+            for meeting in meetings
+            if isinstance(meeting, dict)
+            and "date_start" in meeting
+        ]
+
+        if not meetings:
+            return None
+
+        latest = max(
+            meetings,
+            key=lambda meeting: meeting["date_start"]
+        )
+
+        return latest
+
+    # ----------------------------------------------------
+    # Latest Session
+    # ----------------------------------------------------
+
     def get_latest_session(self):
 
         meeting = self.get_latest_meeting()
@@ -45,63 +89,53 @@ class OpenF1Client(APIClient):
         sessions = self.get_sessions(meeting_key)
 
         if not sessions:
-           return None
+            return None
+
+        if isinstance(sessions, dict):
+            return None
+
+        sessions = [
+            session
+            for session in sessions
+            if isinstance(session, dict)
+            and "date_start" in session
+        ]
+
+        if not sessions:
+            return None
 
         latest = max(
-          sessions,
-          key=lambda session: session["date_start"]
-    )
+            sessions,
+            key=lambda session: session["date_start"]
+        )
 
         return latest
-    
-    def get_dashboard_data(self):
 
-       meeting = self.get_latest_meeting()
+    # ----------------------------------------------------
+    # Current Drivers
+    # ----------------------------------------------------
 
-       session = self.get_latest_session()
-
-       drivers = self.get_current_drivers()
-
-       return {
-        "meeting": meeting,
-        "session": session,
-        "drivers": drivers
-    }
-    
-    def get_meetings(self):
-        return self.get("meetings")
-    
-    def get_latest_meeting(self):
-
-        meetings = self.get_meetings()
-
-        if not meetings:
-           return None
-
-        latest = max(
-        meetings,
-        key=lambda meeting: meeting["date_start"]
-    )
-
-        return latest
-    
     def get_current_drivers(self):
 
         session = self.get_latest_session()
 
         if not session:
-           return []
+            return []
 
         session_key = session["session_key"]
 
-        return self.get(
-        "drivers",
-        params={
-            "session_key": session_key
-        }
-    )
+        drivers = self.get(
+            "drivers",
+            params={
+                "session_key": session_key
+            }
+        )
 
-        drivers = self.get_drivers()
+        if not drivers:
+            return []
+
+        if isinstance(drivers, dict):
+            return []
 
         unique = {}
 
@@ -122,5 +156,23 @@ class OpenF1Client(APIClient):
 
         return sorted(
             unique.values(),
-            key=lambda d: d["driver_number"]
+            key=lambda driver: driver["driver_number"]
         )
+
+    # ----------------------------------------------------
+    # Dashboard
+    # ----------------------------------------------------
+
+    def get_dashboard_data(self):
+
+        meeting = self.get_latest_meeting()
+
+        session = self.get_latest_session()
+
+        drivers = self.get_current_drivers()
+
+        return {
+            "meeting": meeting,
+            "session": session,
+            "drivers": drivers
+        }
