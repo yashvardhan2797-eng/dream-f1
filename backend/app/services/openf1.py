@@ -9,9 +9,10 @@ Provides Formula Fan's interface to the OpenF1 API.
 
 Developer:
 Yashvardhan Rathore
-
 ==========================================================
 """
+
+from datetime import datetime, timezone
 
 from app.services.api_client import APIClient
 
@@ -41,7 +42,7 @@ class OpenF1Client(APIClient):
         return self.get("sessions", params=params)
 
     # ----------------------------------------------------
-    # Latest Meeting
+    # Current / Latest Meeting
     # ----------------------------------------------------
 
     def get_latest_meeting(self):
@@ -51,28 +52,82 @@ class OpenF1Client(APIClient):
         if not meetings:
             return None
 
-        # API returned an error
         if isinstance(meetings, dict):
             return None
 
-        # Keep only valid meetings
-        meetings = [
-            meeting
-            for meeting in meetings
-            if isinstance(meeting, dict)
-            and "date_start" in meeting
-        ]
+        valid_meetings = []
 
-        if not meetings:
+        for meeting in meetings:
+
+            if not isinstance(meeting, dict):
+                continue
+
+            if "date_start" not in meeting:
+                continue
+
+            valid_meetings.append(meeting)
+
+        if not valid_meetings:
             return None
 
-        latest = max(
-            meetings,
-            key=lambda meeting: meeting["date_start"]
-        )
+        now = datetime.now(timezone.utc)
 
-        return latest
+        current = []
 
+        future = []
+
+        past = []
+
+        for meeting in valid_meetings:
+
+            try:
+
+                start = datetime.fromisoformat(
+                    meeting["date_start"].replace("Z", "+00:00")
+                )
+
+                end = datetime.fromisoformat(
+                    meeting["date_end"].replace("Z", "+00:00")
+                )
+
+            except Exception:
+                continue
+
+            if start <= now <= end:
+                current.append(meeting)
+
+            elif start > now:
+                future.append(meeting)
+
+            else:
+                past.append(meeting)
+
+        # Current race weekend
+        if current:
+
+            return sorted(
+                current,
+                key=lambda x: x["date_start"]
+            )[0]
+
+        # Next race weekend
+        if future:
+
+            return sorted(
+                future,
+                key=lambda x: x["date_start"]
+            )[0]
+
+        # Most recent completed weekend
+        if past:
+
+            return sorted(
+                past,
+                key=lambda x: x["date_start"],
+                reverse=True
+            )[0]
+
+        return None
     # ----------------------------------------------------
     # Latest Session
     # ----------------------------------------------------

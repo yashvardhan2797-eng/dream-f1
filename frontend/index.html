@@ -10,8 +10,14 @@
 
     <meta name="description"
         content="Formula Fan provides live timing, AI race analysis, telemetry, strategy insights and predictions for Formula 1, IndyCar and WEC.">
-
-    <link rel="stylesheet" href="css/style.css">
+        
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/cards.css">
+<link rel="stylesheet" href="css/driverChampionship.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/animations.css">
 
 </head>
 
@@ -153,14 +159,13 @@
 
             <!-- Constructors -->
 
-            <div class="panel constructors">
+           <div class="panel constructor-standings">
 
-                <h2>CONSTRUCTOR STANDINGS</h2>
+               <h2>CONSTRUCTOR STANDINGS</h2>
 
-                <div id="constructors">
-
-                    Coming Soon
-
+               <div id="constructors-list">
+                
+                    Loading...
                 </div>
 
             </div>
@@ -246,14 +251,27 @@
 <!-- ==========================================
      Drivers Section
 ========================================== -->
-
-<section class="drivers">
+<section class="driver-championship">
 
     <div class="container">
 
-        <h2>TOP DRIVERS</h2>
+        <div class="championship-card">
 
-        <div id="drivers-container" class="drivers-grid">
+            <div class="championship-header">
+
+                <h2>🏆 DRIVER CHAMPIONSHIP</h2>
+
+                <button class="view-standings-btn">
+                    View Full Standings →
+                </button>
+
+            </div>
+
+            <div id="driver-standings-list">
+
+                Loading...
+
+            </div>
 
         </div>
 
@@ -263,10 +281,12 @@
 
     </main>
 
-    <script src="js/drivers.js"></script>
-
     <script src="js/dashboard.js"></script>
 
+    <script src="js/constructors.js"></script>
+
+    <script src="js/driverStandings.js"></script>
+     
 </body>
 
 </html>

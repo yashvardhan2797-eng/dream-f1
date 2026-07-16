@@ -348,3 +348,81 @@
     transform:scale(1.05);
 
 }
+
+.constructor-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:10px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.position{
+
+    .position{
+
+    width:30px;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+}
+
+.constructor-row:nth-child(1) .position{
+
+    color:#FFD700;
+
+}
+
+.constructor-row:nth-child(2) .position{
+
+    color:#C0C0C0;
+
+}
+
+.constructor-row:nth-child(3) .position{
+
+    color:#CD7F32;
+
+}
+
+.constructor-row{
+
+    transition:.25s;
+
+}
+
+.constructor-row:hover{
+
+    transform:translateX(8px);
+
+}
+
+}
+
+.team-name{
+
+    flex:1;
+
+    margin-left:15px;
+
+    font-weight:600;
+
+    color:white;
+
+}
+
+.points{
+
+    color:#bdbdbd;
+
+    font-size:14px;
+
+}
