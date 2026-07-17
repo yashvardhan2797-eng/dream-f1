@@ -12,15 +12,11 @@ class JolpicaProvider(BaseProvider):
             data = self.client.get_driver_standings()
             if data and len(data) > 0:
                 leader = f"{data[0]['Driver']['givenName']} {data[0]['Driver']['familyName']}"
-                return RaceState(
-                    event_name="Current F1 Season",
-                    session_name="Championship",
-                    leader=leader,
-                    source="jolpica"
-                )
-        except:
+                return RaceState(leader=leader)
+        except Exception:
             pass
         return None
 
     async def get_standings(self, season: str = "current"):
         return self.client.get_driver_standings(season)
+

@@ -6,6 +6,8 @@ from app.routes.test import test_bp
 # Import the new Race Engine
 from app.race.engine import RaceEngine
 
+race_engine = RaceEngine()
+
 
 def create_app():
     app = Flask(__name__)

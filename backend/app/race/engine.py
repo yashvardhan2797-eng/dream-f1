@@ -35,3 +35,7 @@ class RaceEngine:
 
     async def get_standings(self):
         return await self.providers[1].get_standings()
+    
+
+    async def get_constructor_standings(self):
+        return await self.providers[1].get_standings()
