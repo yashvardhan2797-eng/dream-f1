@@ -3,6 +3,7 @@ from app.race.state import RaceState
 # Correct imports
 from app.race.providers.openf1 import OpenF1Provider
 from app.race.providers.jolpica import JolpicaProvider
+from app.race.providers.fastf1 import FastF1Provider
 
 
 class RaceEngine:
@@ -11,6 +12,8 @@ class RaceEngine:
             OpenF1Provider(),   # Try first
             JolpicaProvider()   # Backup
         ]
+        # Dedicated analysis provider
+        self.fastf1 = FastF1Provider()
         self.last_valid_state = None
 
     async def get_current_race(self) -> RaceState:
@@ -34,8 +37,29 @@ class RaceEngine:
         )
 
     async def get_standings(self):
-        return await self.providers[1].get_standings()
-    
+       return await self.providers[1].get_standings()
 
     async def get_constructor_standings(self):
         return await self.providers[1].get_standings()
+
+    async def get_session(self, year, gp, session_type):
+        """
+        Load a FastF1 session.
+        """
+        return await self.fastf1.get_session(
+            year,
+            gp,
+            session_type
+        )
+
+    async def get_telemetry(self, year, gp, session_type):
+        """
+        Future telemetry endpoint.
+        """
+        session = await self.fastf1.get_session(
+            year,
+            gp,
+            session_type
+        )
+
+        return session

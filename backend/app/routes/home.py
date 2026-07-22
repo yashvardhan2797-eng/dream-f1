@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify
+import asyncio
+from flask import Blueprint, jsonify, request
 from app.services.jolpica import JolpicaClient
 from app.services.openf1 import OpenF1Client
 from app.ai.commentary import CommentaryGenerator
@@ -41,6 +42,38 @@ def dashboard():
         return jsonify(openf1_client.get_dashboard_data())
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@home_bp.route("/fastf1/session")
+def fastf1_session():
+    try:
+        from app import create_app
+
+        engine = create_app().race_engine
+
+        year = int(request.args.get("year", 2026))
+        gp = request.args.get("gp", "Belgium")
+        session_type = request.args.get("session", "R")
+
+        session = asyncio.run(
+    engine.get_session(
+        year,
+        gp,
+        session_type
+    )
+)
+        return jsonify({
+            "event": session.event["EventName"],
+            "location": session.event["Location"],
+            "country": session.event["Country"],
+            "drivers": len(session.drivers),
+            "session": session_type,
+            "year": year
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+        
 
 @home_bp.route("/commentary")
 async def ai_commentary():
