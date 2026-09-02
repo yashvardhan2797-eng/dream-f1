@@ -6,7 +6,6 @@ import RaceControlTicker from "./components/RaceControlTicker.jsx";
 import Weather from "./components/Weather.jsx";
 import NextRace from "./components/NextRace.jsx";
 import Standings from "./components/Standings.jsx";
-import Calendar from "./components/Calendar.jsx";
 import { useLiveData, useStandings } from "./hooks/useLiveData.js";
 
 export default function App() {
@@ -29,10 +28,6 @@ export default function App() {
               <NextRace race={live.nextRace} />
             </div>
           </div>
-        </section>
-
-        <section id="calendar" className="container section">
-          <Calendar />
         </section>
 
         <section id="standings" className="container section">
