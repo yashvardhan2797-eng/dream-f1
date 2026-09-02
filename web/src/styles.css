@@ -1,0 +1,174 @@
+:root {
+  --bg: #07080c;
+  --panel: rgba(16, 18, 26, 0.78);
+  --panel-border: rgba(255, 255, 255, 0.07);
+  --text: #f2f3f7;
+  --muted: #8a90a2;
+  --red: #e10600;
+  --cyan: #00e5ff;
+  --green: #35d07f;
+  --yellow: #ffd33d;
+  --font-display: "Orbitron", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; letter-spacing: 0.04em; }
+ol, ul { list-style: none; margin: 0; padding: 0; }
+button { font: inherit; cursor: pointer; }
+
+.container { width: min(1200px, 92vw); margin: 0 auto; }
+.section { padding: 48px 0; scroll-margin-top: 72px; }
+.stack { display: grid; gap: 24px; align-content: start; }
+
+/* Background */
+.bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.bg-grid {
+  position: absolute; inset: -50%;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: perspective(600px) rotateX(55deg);
+  animation: grid-move 12s linear infinite;
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 75%);
+}
+@keyframes grid-move { to { background-position: 0 64px, 0 0; } }
+.bg-glow { position: absolute; width: 60vw; height: 60vw; border-radius: 50%; filter: blur(120px); opacity: 0.35; }
+.bg-glow-red { top: -20vw; left: -10vw; background: var(--red); }
+.bg-glow-cyan { bottom: -25vw; right: -15vw; background: var(--cyan); opacity: 0.22; }
+.bg-speedline {
+  position: absolute; left: 0; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+}
+
+/* Navbar */
+.navbar { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px); background: rgba(7,8,12,0.6); border-bottom: 1px solid var(--panel-border); }
+.navbar-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; }
+.logo { font-family: var(--font-display); font-weight: 900; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
+.logo span { color: var(--red); }
+.logo-mark { width: 26px; height: 10px; background: var(--red); transform: skewX(-25deg); border-radius: 2px; box-shadow: 0 0 12px var(--red); }
+.nav-links { display: flex; gap: 28px; font-weight: 600; font-size: 0.9rem; color: var(--muted); }
+.nav-links a { position: relative; padding: 4px 0; transition: color 0.2s; }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--red); transition: width 0.25s; }
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+
+.status-badge { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--panel-border); background: rgba(255,255,255,0.04); }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); animation: blink 1.4s ease-in-out infinite; }
+.status-live .status-dot { background: var(--green); box-shadow: 0 0 10px var(--green); }
+.status-reconnecting .status-dot { background: var(--red); }
+@keyframes blink { 50% { opacity: 0.35; } }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; min-height: calc(100vh - 64px); padding: 64px 0; }
+.hero-tag { color: var(--cyan); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.22em; margin: 0 0 18px; }
+.hero-title { font-size: clamp(2.2rem, 5vw, 4.4rem); font-weight: 900; line-height: 1.02; display: flex; flex-wrap: wrap; gap: 0 0.3em; }
+.hero-title span { display: inline-block; }
+.hero-title .accent { color: transparent; -webkit-text-stroke: 1.5px var(--red); text-shadow: 0 0 30px rgba(225,6,0,0.4); }
+.hero-description { color: var(--muted); font-size: 1.1rem; max-width: 520px; margin: 26px 0; line-height: 1.6; }
+.hero-status { display: inline-flex; align-items: center; gap: 10px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 26px; }
+.pulse { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+.pulse-live { background: var(--green); animation: pulse 1.2s ease-out infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(53,208,127,0.7); } 100% { box-shadow: 0 0 0 14px rgba(53,208,127,0); } }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn { font-family: var(--font-display); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; padding: 14px 24px; border-radius: 10px; border: 1px solid transparent; display: inline-flex; align-items: center; }
+.btn-primary { background: var(--red); color: #fff; box-shadow: 0 10px 30px rgba(225,6,0,0.35); }
+.btn-ghost { border-color: var(--panel-border); color: var(--muted); background: rgba(255,255,255,0.03); }
+.btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+/* Race track visual */
+.racetrack { position: relative; width: 100%; aspect-ratio: 3 / 2; }
+.racetrack-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.track-outer { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 22; stroke-linejoin: round; }
+.track-inner { fill: none; stroke: rgba(255,255,255,0.35); stroke-width: 2; stroke-dasharray: 8 8; }
+.track-pulse { fill: none; stroke-width: 3; stroke-dasharray: 60 540; stroke-linecap: round; filter: url(#glow); opacity: 0.9; }
+.start-line { stroke: #fff; stroke-width: 3; }
+.car { position: absolute; top: 0; left: 0; width: 14px; height: 7px; border-radius: 3px; offset-rotate: auto; offset-anchor: center; transform-box: fill-box; }
+.racetrack-leader { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; }
+.racetrack-leader .label { display: block; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--muted); font-weight: 700; }
+.racetrack-leader .value { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; }
+
+/* Ticker */
+.ticker { display: flex; align-items: stretch; border-top: 1px solid var(--panel-border); border-bottom: 1px solid var(--panel-border); background: rgba(0,0,0,0.35); overflow: hidden; }
+.ticker-label { flex: none; background: var(--red); color: #fff; font-family: var(--font-display); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; padding: 12px 18px; display: flex; align-items: center; }
+.ticker-window { flex: 1; overflow: hidden; display: flex; align-items: center; mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.ticker-track { display: flex; white-space: nowrap; width: max-content; }
+.ticker-item { padding: 0 32px; font-size: 0.85rem; color: var(--muted); }
+.ticker-item b { color: var(--text); margin-right: 8px; font-family: var(--font-display); font-size: 0.7rem; }
+.flag-green { color: var(--green); } .flag-yellow { color: var(--yellow); } .flag-red { color: #ff5a5a; } .flag-blue { color: #6fa8ff; } .flag-cheq { color: #fff; }
+
+/* Panels */
+.panel { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius); padding: 24px; backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+.panel::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--red), transparent 60%); }
+.panel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.panel-head h2 { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.panel-sub { color: var(--muted); font-size: 0.8rem; font-weight: 600; }
+.panel-foot { color: var(--muted); font-size: 0.72rem; margin: 16px 0 0; text-align: right; }
+.chip { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--panel-border); color: var(--muted); }
+.chip-dry { color: var(--green); border-color: rgba(53,208,127,0.4); }
+.chip-wet { color: #6fa8ff; border-color: rgba(111,168,255,0.4); }
+.error { color: #ff7b7b; font-size: 0.9rem; }
+.flag-icon { width: 14px; height: 14px; background: repeating-conic-gradient(#fff 0 25%, #000 0 50%) 0 0 / 7px 7px; border-radius: 2px; }
+
+.skeleton-list { height: 420px; border-radius: 12px; background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.08), rgba(255,255,255,0.03)); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+.skeleton-list.short { height: 160px; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* Live grid */
+.grid-live { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; align-items: start; }
+
+/* Leaderboard */
+.lb-list { display: grid; gap: 6px; }
+.lb-row { display: grid; grid-template-columns: 32px 4px 52px 1fr 90px 80px; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 10px; background: rgba(255,255,255,0.025); transition: background 0.2s; }
+.lb-row:hover { background: rgba(255,255,255,0.06); }
+.lb-pos { font-family: var(--font-display); font-weight: 700; color: var(--muted); text-align: center; }
+.lb-row:nth-child(1) .lb-pos { color: #ffd700; } .lb-row:nth-child(2) .lb-pos { color: #c0c0c0; } .lb-row:nth-child(3) .lb-pos { color: #cd7f32; }
+.lb-bar { height: 28px; border-radius: 2px; background: var(--team); box-shadow: 0 0 10px var(--team); }
+.lb-code { font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; }
+.lb-name { display: flex; flex-direction: column; font-weight: 600; font-size: 0.9rem; line-height: 1.2; }
+.lb-name small { color: var(--muted); font-weight: 500; font-size: 0.72rem; }
+.lb-gap, .lb-int { font-variant-numeric: tabular-nums; text-align: right; font-size: 0.85rem; }
+.lb-gap { font-weight: 700; } .lb-int { color: var(--muted); }
+
+/* Weather */
+.gauge { margin-bottom: 14px; }
+.gauge-head { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+.gauge-head b { color: var(--text); font-variant-numeric: tabular-nums; }
+.gauge-track { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+.gauge-fill { height: 100%; border-radius: 3px; }
+.wind { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 0.8rem; margin-top: 6px; }
+.wind-arrow { display: inline-block; color: var(--cyan); font-size: 1.1rem; }
+
+/* Next race */
+.next-name { font-size: 1.3rem; margin-bottom: 4px; }
+.next-circuit { color: var(--muted); font-size: 0.85rem; margin: 0 0 12px; }
+.next-session { color: var(--cyan); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; margin: 0 0 8px; }
+.countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+.digit { text-align: center; }
+.digit-window { height: 52px; overflow: hidden; background: rgba(0,0,0,0.4); border: 1px solid var(--panel-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; position: relative; }
+.digit-window span { position: absolute; }
+.digit small { display: block; margin-top: 6px; font-size: 0.62rem; letter-spacing: 0.18em; color: var(--muted); font-weight: 700; }
+.session-list li { display: flex; justify-content: space-between; font-size: 0.82rem; padding: 7px 0; border-top: 1px solid var(--panel-border); color: var(--muted); }
+.session-list li.is-next { color: var(--text); font-weight: 600; }
+.session-list li.is-done { opacity: 0.45; text-decoration: line-through; }
+
+/* Circuit layouts */
+.circuit-layout { width: 100%; border-radius: 10px; margin: 0 0 12px; background: #1f2440; display: block; }
+.lb-circuit { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.025); }
+.lb-circuit img { height: 64px; border-radius: 8px; background: #1f2440; }
+.lb-circuit span { font-family: var(--font-display); font-size: 0.75rem; letter-spacing: 0.1em; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-grid, .status-dot, .pulse-live { animation: none; }
+}
