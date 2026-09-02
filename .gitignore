@@ -18,3 +18,7 @@ __pycache__/
 # Windows
 Thumbs.db
 Desktop.ini
+# Node
+node_modules/
+web/dist/
+npm-debug.log*
