@@ -11,6 +11,7 @@ export const api = {
   driverStandings: () => getJson("/standings/drivers"),
   constructorStandings: () => getJson("/standings/constructors"),
   nextRace: () => getJson("/schedule/next"),
+  schedule: () => getJson("/schedule"),
 };
 
 /** Subscribe to the SSE live stream. Returns an unsubscribe function. */

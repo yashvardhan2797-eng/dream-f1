@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { circuitImage } from "../circuits.js";
 
 function formatGap(value, position) {
   if (position === 1) return "LEADER";
@@ -9,6 +10,7 @@ function formatGap(value, position) {
 
 export default function LiveLeaderboard({ session, leaderboard, error }) {
   const rows = leaderboard?.rows ?? [];
+  const layout = session ? circuitImage(session.circuit, session.location, session.country) : null;
 
   return (
     <div className="panel leaderboard">
@@ -22,6 +24,20 @@ export default function LiveLeaderboard({ session, leaderboard, error }) {
           </span>
         )}
       </div>
+
+      {layout && (
+        <motion.div
+          className="lb-circuit"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <img src={layout} alt={`${session.circuit} layout`} />
+          <span>
+            {session.circuit} · {session.country}
+          </span>
+        </motion.div>
+      )}
 
       {error && rows.length === 0 && <p className="error">Timing unavailable: {error}</p>}
       {!error && rows.length === 0 && <div className="skeleton-list" />}

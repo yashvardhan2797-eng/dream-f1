@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { circuitImage } from "../circuits.js";
 
 function useCountdown(target) {
   const [now, setNow] = useState(Date.now());
@@ -41,6 +42,7 @@ function Digit({ value, label }) {
 export default function NextRace({ race }) {
   const nextSession = race?.sessions.find((s) => Date.parse(s.start) > Date.now()) ?? race?.sessions.at(-1);
   const cd = useCountdown(nextSession?.start);
+  const layout = race ? circuitImage(race.circuitId, race.locality, race.country) : null;
 
   return (
     <motion.div
@@ -62,6 +64,16 @@ export default function NextRace({ race }) {
           <p className="next-circuit">
             {race.circuit} · {race.locality}, {race.country}
           </p>
+          {layout && (
+            <motion.img
+              className="circuit-layout"
+              src={layout}
+              alt={`${race.circuit} layout`}
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7 }}
+            />
+          )}
           <p className="next-session">{nextSession?.label ?? "Race"}</p>
           <div className="countdown">
             <Digit value={cd.days} label="DAYS" />

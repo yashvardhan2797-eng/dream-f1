@@ -17,6 +17,7 @@ export default function Navbar({ connection }) {
         </a>
         <nav className="nav-links">
           <a href="#live">Live</a>
+          <a href="#calendar">Circuits</a>
           <a href="#standings">Standings</a>
           <a href="#next">Next Race</a>
         </nav>
